@@ -3,6 +3,9 @@
 module load tools
 module load anaconda3/4.4.0
 
+echo ". /services/tools/anaconda3/4.4.0/etc/profile.d/conda.sh" >> ~/.bashrc
+source ~/.bashrc
+
 conda activate starseqr
 
 BASE_DIR="/home/projects/cu_10160/people/ricmic/"
