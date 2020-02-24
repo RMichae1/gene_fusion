@@ -1,18 +1,20 @@
 #!/bin/env bash
 
-# LOCAL SCRIPT TO RUN ARRIBA FUSION CALLING TOOL
+# CLUSTER SCRIPT TO RUN ARRIBA FUSION CALLING TOOL
 
-#module load tools
-#module load gcc
-#module load star/2.7.2b
-#module load arriba/1.1.0
+module load tools
+module load gcc
+module load star/2.7.2b
+module load arriba/1.1.0
 
-STAR_INDEX_PATH="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa.star.idx/"
-FASTQ1_BRAIN="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/data/fastq/sim_brain_1.fq.gz"
-FASTQ2_BRAIN="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/data/fastq/sim_brain_2.fq.gz"
-ASSEMBLY_FA="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa"
-ANNOT_GTF="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/ref_annot.gtf"
-BLACKLIST="/home/rimichael/System/arriba_v1.2.0/database/blacklist_hg38_GRCh38_2018-11-04.tsv.gz"
+BASE_DIR="/home/projects/cu_10160/people/ricmic/data/"
+SYNTH_DATA="${BASE_DIR}/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads/"
+STAR_INDEX_PATH="${BASE_DIR}/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa.star.idx/"
+FASTQ1_BRAIN="${SYNTH_DATA}/sim_brain_1.fq.gz"
+FASTQ2_BRAIN="${SYNTH_DATA}/sim_brain_2.fq.gz"
+ASSEMBLY_FA="${BASE_DIR}/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa"
+ANNOT_GTF="${BASE_DIR}/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/ref_annot.gtf"
+BLACKLIST="${BASE_DIR}/blacklist_hg38_GRCh38_2018-11-04.tsv.gz"
 
 function arriba(){
 # This is the default configuration as specified in the docs
@@ -30,5 +32,8 @@ arriba \
     -T -P
 }
 
+echo "Changing into output directory..."
+cd /home/projects/cu_10160/people/ricmic/output
 echo "Running Arriba..."
+
 arriba
