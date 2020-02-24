@@ -1,0 +1,13 @@
+Reference Human.B37;
+GeneModel RefGene;
+Trimming /Mode=TrimByQuality /LeftTrimming=0 /RightTrimming=0 /ReadTrimQuality=2 /ReadTrimSize=65536;
+Options /FusionVersion=2 /ParallelJobNumber=2 /PairedEnd=True /RnaMode=True /FileFormat=FASTQ /AutoPenalty=True 
+/FixedPenalty=2 /OutputFolder="OUTPUTFOLDER" /ThreadNumber=THREADS
+/QualityEncoding=Automatic /CompressionMethod=Gzip /Gzip=True /FilterUnlikelyFusionReads=True 
+/FullLengthPenaltyProportion=8 /OutputFusionReads=True /MinimalHit=2 /MinimalFusionAlignmentLength=0 
+/MinimalFusionSpan=5000 /FusionReportCutoff=1 /ReportUnannotatedFusion=True 
+/NonCanonicalSpliceJunctionPenalty=2 /RealignToGenome=False;
+Output FusionDetection;
+End;
+ 
+Begin ExportView;
