@@ -1,0 +1,38 @@
+# LEUKEMIA
+M30829 # BCR_ABL1, K562 Leukemia fusion mRNA
+SRX2589984 # K562 cell line, RNA-seqWTrep2 (fusion?)
+
+GSM659599 # K562 female leukemia BCR-ABL positive Gleevec treated_B (treated + fusion?)
+
+SRX1132906 # GSM1341741: 73_GMP_MDS, Myelodysplastic syndromes (fusion ?)
+
+# Leukemia Fusion protein AML1-ETO
+SRP161672 
+        -> SRR7825629 d40 run chipseq
+        -> SRR7825628 d40 ctrl chipseq
+        -> ...
+
+# PROSTATE
+# SCIENCE paper
+DQ204772 # TMPRSS2/ERGa prost. fusion mRNA
+DQ204770 # TMPRSS2/ETV1a fusion mRNA
+DQ204771 
+DQ204773 # ---/ERGb fus. mRNA
+
+# nature RNAseq paper
+SRR1657556 LARGE 10nt
+SRR1657557 LARGE 100nt - siCTCF_5237; Homo sapiens; RNA-Seq
+SRR1657558 SMALL 50nt si-/Negtive control-Rep1_3899; Homo sapiens; RNA-Seq
+SRR1657559 SMALL 50nt siCTCF-Rep1_3900; Homo sapiens; RNA-Seq
+SRR1657560 SMALL 50nt
+SRR1657561 SMALL 50nt
+
+
+# GIAB - NIST Genome in a Bottle ~300X seq of HG001
+SRX1049768 # Start sample 
+SRX1049855 # END sample 
+
+
+
+
+
