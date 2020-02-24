@@ -37,7 +37,7 @@ for left in ${LEFT_FILES}; do
          RIGHT_FASTQ=${right}
          echo "Run SEQR on ${BASENAME} -> output: ${SAMPLE_OUTPUT_DIR}"
          echo "align... ${LEFT_FASTQ} and ${RIGHT_FASTQ} ..."
-         echo "using BAM: ${BAM_STAR_FILE} and Junctions: ${JUNCT_STAR_FILE}...
+         echo "using BAM: ${BAM_STAR_FILE} and Junctions: ${JUNCT_STAR_FILE}..."
          star_seqr
       fi
    done
