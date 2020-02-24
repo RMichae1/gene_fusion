@@ -2,7 +2,10 @@
 
 # SCRIPT TO RUN STARSEQR IN LOCAL ENVIRONMENT
 
-pyenv activate strubi
+module load tools
+module load anaconda3/4.4.0
+
+conda activate starseqr
 
 BASE_DIR="/home/projects/cu_10160/people/ricmic/"
 DATA_DIR="${BASE_DIR}/data/"
