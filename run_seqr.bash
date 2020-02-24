@@ -1,5 +1,3 @@
-#!/bin/env/ bash
-
 # SCRIPT TO RUN STARSEQR IN LOCAL ENVIRONMENT
 
 module load tools
