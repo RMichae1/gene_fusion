@@ -4,25 +4,23 @@
 
 pyenv activate strubi
 
-BASE_DIR="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/"
+BASE_DIR="/home/projects/cu_10160/people/ricmic/"
 DATA_DIR="${BASE_DIR}/data/"
-GENOME_LIB="${BASE_DIR}/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/"
-LEFT_FILES="${DATA_DIR}/fastq/*_1.fq*"
-RIGHT_FILES="${DATA_DIR}/fastq/*_2.fq*"
+GENOME_LIB="${DATA_DIR}/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/"
+LEFT_FILES="${DATA_DIR}/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads/*_1.fq*"
+RIGHT_FILES="${DATA_DIR}/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads*_2.fq*"
+OUTPUT_DIR="${BASE_DIR}/output/"
 
 # build index with STAR first
-# RUN ON CLUSTER - 31GB not enough to write index to file
-function make_index(){
-STAR --runMode genomeGenerate --genomeFastaFiles /home/rimichael/Uni/KU_BioInf/projects/gene_fusion/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa --genomeDir /home/rimichael/Uni/KU_BioInf/projects/gene_fusion/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/ --sjdbGTFfile /home/rimichael/Uni/KU_BioInf/projects/gene_fusion/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/ref_annot.gtf --runThreadN 6 --sjdbOverhang 150 --genomeSAsparseD 1
-}
 
 function star_seqr(){
-starseqr.py -1 ${left} -2 ${right} -m 1 -p RNA_test -t 12 -i ${sample}/STAR_INDEX -g ${GENOME_LIB}/gencode.gtf -r ${GENOME_LIB}/hg19.fa -vv
+starseqr.py -1 ${LEFT_FASTQ} -2 ${RIGHT_FASTQ} -m 1 -p RNA_${BASENAME%_*} -t 4 -i ${GENOME_LIB}/ref_genome.fa.star.idx -g ${GENOME_LIB}/ref_annot.gtf -r ${GENOME_LIB}/ref_genome.fa -vv
 }
 
 for left in ${LEFT_FILES}; do
    for right in ${RIGHT_FILES}; do
       if [[ ${left%_*} == ${right%_*} ]]; then
+       BASENAME=$(basename ${left})
        SAMPLE_OUTPUT_DIR=${OUTPUT_DIR}/${BASENAME%_*}/star_seqr
         # check if output directory exists and create
          if [[ ! -d ${SAMPLE_OUTPUT_DIR} ]]; then
