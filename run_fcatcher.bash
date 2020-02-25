@@ -31,10 +31,16 @@ for left in ${LEFT_FILES}; do
          fi
          # Fusioncatcher also takes single FASTQ files to read
          FASTQ_FILES="${left},${right}"
+         
+         echo "Running FusionCatcher on ${BASENMAE}..."
+         echo "With ${FASTQ_FILES}"
+         
          fusioncatcher
       fi
    done
 done
+
+exit 0
 
 
 
