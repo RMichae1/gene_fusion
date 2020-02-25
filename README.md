@@ -39,3 +39,8 @@ FusionMap.sh - Boilerplate Code that creates a config and command to run FusionM
 
 Requires a genome index in .gem format (use gemtools for that).
 Runs with either fastq files or bam files.
+
+## Fusion Catcher
+
+Fusion Calling tool for somatic fusion genes, translocations and chimeras in RNAseq data
+Takes fastq files and has capability to generate reference directory with `fusioncatcher-build`
