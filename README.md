@@ -33,3 +33,9 @@ This is the tool which the others are compared to.
 FusionMap_options.txt - contains the specified options for the run of fusionmap
 
 FusionMap.sh - Boilerplate Code that creates a config and command to run FusionMap from specified parameters
+
+
+## ChimPipe
+
+Requires a genome index in .gem format (use gemtools for that).
+Runs with either fastq files or bam files.
