@@ -38,6 +38,4 @@ for left in ${LEFT_FILES}; do
     done
 done
 
-
-
 exit 0

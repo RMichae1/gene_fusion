@@ -62,3 +62,5 @@ for left in ${LEFT_FILES}; do
       fi
    done
 done
+
+exit 0

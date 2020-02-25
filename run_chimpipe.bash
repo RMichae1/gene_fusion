@@ -32,4 +32,4 @@ for left in ${LEFT_FILES}; do
         run_chimpipe
 done
 
-
+exit 0

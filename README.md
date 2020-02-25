@@ -6,6 +6,7 @@ Gene Fusion Detection Tooling Benchmarking Project.
 ## File Structure
 + run_*.bash - Run files for tools in the benchmarking process
 + sample_ids.txt - List of samples used for benchmarking (publicly available through GEO browser or SRA)
++ ./truth contains the truth data to synthetic fusions
 + ${BASE_DIR}/data/real contains real data samples from SRA as specified in sample_ids.txt
 + ${BASE_DIR}/data/synth contains synthetic benchmark data
 + ${BASE_DIR}/data/ref contains reference file (the compiled GRCh38_gencode_v31_CTAT_lib)
