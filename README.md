@@ -1,4 +1,4 @@
-# gene_fusion
+# Gene Fusion Benchmarking
 Gene Fusion Detection Tooling Benchmarking Project.
 
 ## File Structure
@@ -24,3 +24,12 @@ Version used 1.1.0
 Using conda for starseqr greatly simplifies the installation process and required dependencies.
 
 starseqr_requirements.txt - contains requirements for the conda environment
+
+## FusionMap
+
+FusionMap is a fusion caller tool and part of the oshell suite. This is a Windows.exe tool, which can be run in the mono environment on Linux.
+This is the tool which the others are compared to.
+
+FusionMap_options.txt - contains the specified options for the run of fusionmap
+
+FusionMap.sh - Boilerplate Code that creates a config and command to run FusionMap from specified parameters
