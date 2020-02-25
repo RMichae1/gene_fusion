@@ -24,7 +24,7 @@ for left in ${LEFT_FILES}; do
    for right in ${RIGHT_FILES}; do
       if [[ ${left%_*} == ${right%_*} ]]; then
         BASENAME=$(basename ${left})
-        SAMPLE_OUTPUT_DIR=${OUTPUT_DIR}/${BASENAME%_*}
+        SAMPLE_OUTPUT_DIR=${OUTPUT_DIR}/${BASENAME%_*}/fusion_catcher
         # check if output directory exists and create
          if [[ ! -d ${SAMPLE_OUTPUT_DIR} ]]; then
                 echo "creating dir ${SAMPLE_OUTPUT_DIR}"
