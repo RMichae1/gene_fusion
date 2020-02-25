@@ -1,7 +1,7 @@
 # Gene Fusion Benchmarking
 Gene Fusion Detection Tooling Benchmarking Project.
 
-![](https://www.google.com/url?sa=i&url=https%3A%2F%2Fdlpng.com%2Fpng%2F6411655&psig=AOvVaw1U-Z20n_TwkccrN073h16B&ust=1582730834215000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMjUwPuB7ecCFQAAAAAdAAAAABAN)
+![](https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS22lqiVjXS_ZcXQ25RVTVgC6YVgdR-W4Np3fJBtl277mEFauVp)
 
 ## File Structure
 + run_*.bash - Run files for tools in the benchmarking process
