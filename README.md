@@ -1,6 +1,8 @@
 # Gene Fusion Benchmarking
 Gene Fusion Detection Tooling Benchmarking Project.
 
+![](https://www.google.com/url?sa=i&url=https%3A%2F%2Fdlpng.com%2Fpng%2F6411655&psig=AOvVaw1U-Z20n_TwkccrN073h16B&ust=1582730834215000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMjUwPuB7ecCFQAAAAAdAAAAABAN)
+
 ## File Structure
 + run_*.bash - Run files for tools in the benchmarking process
 + sample_ids.txt - List of samples used for benchmarking (publicly available through GEO browser or SRA)
