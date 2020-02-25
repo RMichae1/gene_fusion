@@ -2,9 +2,12 @@
 Gene Fusion Detection Tooling Benchmarking Project.
 
 ## File Structure
-run_*.bash - Run files for tools in the benchmarking process
-
-sample_ids.txt - List of samples used for benchmarking (publicly available through GEO browser or SRA)
++ run_*.bash - Run files for tools in the benchmarking process
++ sample_ids.txt - List of samples used for benchmarking (publicly available through GEO browser or SRA)
++ ${BASE_DIR}/data/real contains real data samples from SRA as specified in sample_ids.txt
++ ${BASE_DIR}/data/synth contains synthetic benchmark data
++ ${BASE_DIR}/data/ref contains reference file (the compiled GRCh38_gencode_v31_CTAT_lib)
++ ${BASE_DIR}/data/ref/ref_genome.gem reference genome in .gem format created with gemtools (used by ChimPipe)
 
 ## STAR
 Used for alignment with CTAT genome provided by the Broad Institute (GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play)

@@ -14,6 +14,7 @@ RIGHT_FILES="${DATA_DIR}/synth/*/data.broadinstitute.org/Trinity/CTAT_FUSIONTRAN
 REF_DIR="${DATA_DIR}/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/"
 
 # FUSIONCATCHER RELIES ON PYTHON2
+# TODO is conda activation required here?q
 
 function run_catcher() {
     fusioncatcher -d ${REF_DIR} -i ${FASTQ_FILE} -o ${SAMPLE_OUTPUT_DIR}
