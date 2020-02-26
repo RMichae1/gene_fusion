@@ -1,5 +1,3 @@
-!/bin/env bash
-
 module load tools
 module load oshell/10.0.1.69
 
