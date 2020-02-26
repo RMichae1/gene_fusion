@@ -1,5 +1,3 @@
-!#/bin/env bash
-
 # SCRIPT TO RUN chimpipe
 
 module load tools

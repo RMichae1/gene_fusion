@@ -1,5 +1,3 @@
-#!/bin/env bash
-
 # CLUSTER SCRIPT TO RUN ARRIBA FUSION CALLING TOOL
 
 module load tools

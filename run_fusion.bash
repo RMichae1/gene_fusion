@@ -1,7 +1,4 @@
-#!/bin/env bash
-
 # SCRIPT TO RUN STAR FUSION ON THE LOCAL PROJECT STRUCTURE
-# Author: Richard Michael
 
 BASE_DIR="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/"
 GENOME_LIB="${BASE_DIR}/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/"
