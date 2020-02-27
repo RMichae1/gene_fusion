@@ -9,6 +9,7 @@ module load chimpipe/0.9.5
 
 BASE_DIR="/home/projects/cu_10160/people/ricmic/"
 DATA_DIR="${BASE_DIR}/data/"
+OUTPUT_DIR="${BASE_DIR}/output/"
 LEFT_FILES="${DATA_DIR}/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/*/reads/*_1.fq*"
 GENOME_LIB="${DATA_DIR}/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/"
 
