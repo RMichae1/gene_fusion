@@ -21,7 +21,7 @@ function run_chimpipe() {
 
 for left in ${LEFT_FILES}; do
        BASENAME=$(basename ${left})
-       BAM_STAR_FILE=${BASE_DIR}/output/${BASENAME%_*}/Aligned.out.bam
+       BAM_STAR_FILE=${OUTPUT_DIR}/${BASENAME%_*}/Aligned.out.bam
        SAMPLE_OUTPUT_DIR=${OUTPUT_DIR}/${BASENAME%_*}/chimpipe
         # check if output directory exists and create
         if [[ ! -d ${SAMPLE_OUTPUT_DIR} ]]; then
