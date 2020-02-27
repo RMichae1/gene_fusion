@@ -1,7 +1,7 @@
 # SCRIPT TO RUN chimpipe
 
 module load tools
-moudle load perl/5.24.0
+moudle load perl
 module load bedtools/2.28.0
 module load samtools/1.9
 module load ncbi-blast/2.8.1+
