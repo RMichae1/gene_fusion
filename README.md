@@ -49,4 +49,12 @@ Runs with either fastq files or bam files.
 ## Fusion Catcher
 
 Fusion Calling tool for somatic fusion genes, translocations and chimeras in RNAseq data
-Takes fastq files and has capability to generate reference directory with `fusioncatcher-build`
+Takes fastq files and has capability to generate reference directory with `fusioncatcher-build`.
+Due to requirement conflicts (Python 2.7.X) a pre-built data directory was used.
+Setup of reference directory from:
+```
+wget http://sourceforge.net/projects/fusioncatcher/files/data/human_v98.tar.gz.aa
+wget http://sourceforge.net/projects/fusioncatcher/files/data/human_v98.tar.gz.ab
+wget http://sourceforge.net/projects/fusioncatcher/files/data/human_v98.tar.gz.ac
+wget http://sourceforge.net/projects/fusioncatcher/files/data/human_v98.tar.gz.ad
+```

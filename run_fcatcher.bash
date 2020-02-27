@@ -6,6 +6,10 @@ module load openjdk/13.0.1
 module load java/1.8.0
 module load jre/1.8.0
 module load fusioncatcher/1.20
+module load bowtie/1.2.1.1
+module load bowtie2/2.3.4.1
+module load seqtk/1.3
+module load bbmap/38.35
 
 DATA_DIR="/home/projects/cu_10160/people/ricmic/data"
 OUTPUT_DIR="/home/projects/cu_10160/people/ricmic/output/"
