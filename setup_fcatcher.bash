@@ -8,6 +8,8 @@ module load java/1.8.0
 module load jre/1.8.0
 module load fusioncatcher/1.20
 
+BASE_DIR="/home/projects/cu_10160/people/ricmic/"
+DATA_DIR="${BASE_DIR}/data/"
 REF_DIR="${DATA_DIR}/ref/catcher_data/" 
 
 fusioncatcher-build --output ${REF_DIR} --organism='homo_sapiens' --threads=4
