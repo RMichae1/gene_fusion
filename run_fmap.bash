@@ -11,7 +11,7 @@ LEFT_FILES="${DATA_DIR}/synth/*/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS
 RIGHT_FILES="${DATA_DIR}/synth/*/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/*/reads/*_2.fq*"
 
 function run_fmap() {
-    ${FMAP_SCRIPT} -c ${FMAP_CONFIG} -o ${SAMPLE_OUTPUT_DIR} -t 4 ${LEFT_FASTQ} ${RIGHT_FASTQ}
+    bash ${FMAP_SCRIPT} -c ${FMAP_CONFIG} -o ${SAMPLE_OUTPUT_DIR} -t 4 ${LEFT_FASTQ} ${RIGHT_FASTQ}
 }
 
 for left in ${LEFT_FILES}; do

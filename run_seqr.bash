@@ -39,7 +39,7 @@ for left in ${LEFT_FILES}; do
 	HEADER_FIRST_ELEM="chr_donorA"
 	FOOTER_ELEM="#"
 	FILE_FIRST_ELEM=$(head -n 1 ${JUNCT_STAR_FILE} | awk -F '\t' '{print $1}')
-	FILE_FOOTER_ELEM=$(tail -n 1 ${JUNCT_STAR_FILE} | awk -F '\t' '${print substr($1,1,1)}')
+	FILE_FOOTER_ELEM=$(tail -n 1 ${JUNCT_STAR_FILE} | awk -F '\t' '{print substr($1,1,1)}')
 	# We are going to change the file around.. lets make a backup first
 	if [[${HEADER_FIRST_ELEM} == ${FILE_FIRST_ELEM} ]] || [[ ${FOOTER_ELEM} == ${FILE_FOOTER_ELEM} ]]; then
 		cp ${JUNCT_STAR_FILE} ${JUNCT_STAR_FILE}.bak
