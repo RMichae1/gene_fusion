@@ -17,7 +17,7 @@ GENOME_LIB="${DATA_DIR}/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ct
 # this tool requires a .gem index of the reference genome used - use gem-tools for that (index)
 
 function run_chimpipe() {
-    ChimPipe.sh --fastq_1 ${LEFT_FASTQ} --fastq_2 ${RIGHT_FASTQ} --genome-index ${DATA_DIR}/ref/ref_genome.gem --annotation ${GENOME_LIB}/ref_annot.gtf --transcriptome-index ${DATA_DIR}/ref/ref_annot.gtf.junctions.gem --transcriptome-keys ${DATA_DIR}/ref/ref_annot.gtf.junctions.keys --sample-id ${BASENAME} -o ${SAMPLE_OUTPUT_DIR} -t 8
+    ChimPipe.sh --fastq_1 ${LEFT_FASTQ} --fastq_2 ${RIGHT_FASTQ} -g ${DATA_DIR}/ref/ref_genome.gem -a ${GENOME_LIB}/ref_annot.gtf -t ${DATA_DIR}/ref/ref_annot.gtf.junctions.gem -k ${DATA_DIR}/ref/ref_annot.gtf.junctions.keys --sample-id ${BASENAME} -o ${SAMPLE_OUTPUT_DIR} -t 8
 }
 
 for left in ${LEFT_FILES}; do
