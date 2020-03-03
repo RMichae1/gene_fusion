@@ -26,8 +26,8 @@ for left in ${LEFT_FILES}; do
       if [[ ${left%_*} == ${right%_*} ]]; then
        BASENAME=$(basename ${left})
        SAMPLE_OUTPUT_DIR=${OUTPUT_DIR}/${BASENAME%_*}/star_seqr
-       JUNCT_STAR_FILE=${BASE_DIR}/output/${BASENAME%_*}/Chimeric.out.junction
-       BAM_STAR_FILE=${BASE_DIR}/output/${BASENAME%_*}/Aligned.out.bam
+       JUNCT_STAR_FILE=${OUTPUT_DIR}/${BASENAME%_*}/Chimeric.out.junction
+       BAM_STAR_FILE=${OUTPUT_DIR}/${BASENAME%_*}/Aligned.out.bam
 
         # check if output directory exists and create
          if [[ ! -d ${SAMPLE_OUTPUT_DIR} ]]; then
@@ -41,7 +41,7 @@ for left in ${LEFT_FILES}; do
 	FILE_FIRST_ELEM=$(head -n 1 ${JUNCT_STAR_FILE} | awk -F '\t' '{print $1}')
 	FILE_FOOTER_ELEM=$(tail -n 1 ${JUNCT_STAR_FILE} | awk -F '\t' '{print substr($1,1,1)}')
 	# We are going to change the file around.. lets make a backup first
-	if [[${HEADER_FIRST_ELEM} == ${FILE_FIRST_ELEM} ]] || [[ ${FOOTER_ELEM} == ${FILE_FOOTER_ELEM} ]]; then
+	if [[ ${HEADER_FIRST_ELEM} == ${FILE_FIRST_ELEM} ]] || [[ ${FOOTER_ELEM} == ${FILE_FOOTER_ELEM} ]]; then
 		cp ${JUNCT_STAR_FILE} ${JUNCT_STAR_FILE}.bak
 	fi
 	# use first value to test if header exists
