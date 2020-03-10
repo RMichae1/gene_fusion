@@ -1,0 +1,34 @@
+Use of uninitialized value $ENV{"CTAT_GENOME_LIB"} in concatenation (.) or string at /services/tools/trinityfusion/0.3.4/TrinityFusion line 45.
+* Running CMD: /services/tools/trinityfusion/0.3.4/DISCASM/DISCASM  --chimeric_junctions /home/projects/cu_10160/people/ricmic/output/sim_brain/Chimeric.out.junction  --left_fq /home/projects/cu_10160/people/ricmic/data/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads/sim_brain_1.fq.gz  --right_fq /home/projects/cu_10160/people/ricmic/data/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads/sim_brain_2.fq.gz  --out_dir trinity_discasm  --CPU 4  --denovo_assembler Trinity  --aligned_bam /home/projects/cu_10160/people/ricmic/output/sim_brain/Aligned.out.bam 
+TRINITY_HOME has been set to: /services/tools/trinityrnaseq/2.9.1
+Running: /services/tools/trinityfusion/0.3.4/DISCASM/util/retrieve_SF_chimeric_and_unmapped_reads.py /home/projects/cu_10160/people/ricmic/output/sim_brain/Aligned.out.bam /home/projects/cu_10160/people/ricmic/output/sim_brain/Chimeric.out.junction /home/projects/cu_10160/people/ricmic/data/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads/sim_brain_1.fq.gz /home/projects/cu_10160/people/ricmic/data/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads/sim_brain_2.fq.gz
+
+
+Error encountered::  <!----
+CMD: /services/tools/trinityfusion/0.3.4/DISCASM/DISCASM  --chimeric_junctions /home/projects/cu_10160/people/ricmic/output/sim_brain/Chimeric.out.junction  --left_fq /home/projects/cu_10160/people/ricmic/data/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads/sim_brain_1.fq.gz  --right_fq /home/projects/cu_10160/people/ricmic/data/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads/sim_brain_2.fq.gz  --out_dir trinity_discasm  --CPU 4  --denovo_assembler Trinity  --aligned_bam /home/projects/cu_10160/people/ricmic/output/sim_brain/Aligned.out.bam  2>tmp.10824.1583831974.stderr
+
+Errmsg:
+Traceback (most recent call last):
+  File "/services/tools/trinityfusion/0.3.4/DISCASM/util/retrieve_SF_chimeric_and_unmapped_reads.py", line 8, in <module>
+    import pysam
+ModuleNotFoundError: No module named 'pysam'
+Found prog: Trinity at path: /services/tools/trinityrnaseq/2.9.1/Trinity
+
+
+Traceback (most recent call last):
+  File "/services/tools/trinityfusion/0.3.4/DISCASM/DISCASM", line 294, in <module>
+    DISCASM().run()
+  File "/services/tools/trinityfusion/0.3.4/DISCASM/DISCASM", line 262, in run
+    pipeliner.run()
+  File "/services/tools/trinityfusion/0.3.4/DISCASM/PyLib/Pipeliner.py", line 53, in run
+    run_cmd(cmd.get_cmd())
+  File "/services/tools/trinityfusion/0.3.4/DISCASM/PyLib/Pipeliner.py", line 17, in run_cmd
+    subprocess.check_call(cmd, shell=True)
+  File "/usr/lib64/python3.6/subprocess.py", line 311, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '/services/tools/trinityfusion/0.3.4/DISCASM/util/retrieve_SF_chimeric_and_unmapped_reads.py /home/projects/cu_10160/people/ricmic/output/sim_brain/Aligned.out.bam /home/projects/cu_10160/people/ricmic/output/sim_brain/Chimeric.out.junction /home/projects/cu_10160/people/ricmic/data/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads/sim_brain_1.fq.gz /home/projects/cu_10160/people/ricmic/data/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads/sim_brain_2.fq.gz' returned non-zero exit status 1.
+
+--->
+
+Error, cmd: /services/tools/trinityfusion/0.3.4/DISCASM/DISCASM  --chimeric_junctions /home/projects/cu_10160/people/ricmic/output/sim_brain/Chimeric.out.junction  --left_fq /home/projects/cu_10160/people/ricmic/data/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads/sim_brain_1.fq.gz  --right_fq /home/projects/cu_10160/people/ricmic/data/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads/sim_brain_2.fq.gz  --out_dir trinity_discasm  --CPU 4  --denovo_assembler Trinity  --aligned_bam /home/projects/cu_10160/people/ricmic/output/sim_brain/Aligned.out.bam  2>tmp.10824.1583831974.stderr died with ret 256  at /services/tools/trinityfusion/0.3.4/PerlLib/Pipeliner.pm line 186.
+	Pipeliner::run('Pipeliner=HASH(0x623008)') called at /services/tools/trinityfusion/0.3.4/TrinityFusion line 276
