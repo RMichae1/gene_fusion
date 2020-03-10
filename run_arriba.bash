@@ -22,7 +22,7 @@ STAR \
     --readFilesIn ${FASTQ1_BRAIN} ${FASTQ2_BRAIN} --readFilesCommand zcat \
     --outStd BAM_Unsorted --outSAMtype BAM Unsorted --outSAMunmapped Within --outBAMcompression 0 \
     --outFilterMultimapNmax 1 --outFilterMismatchNmax 3 \
-    --chimSegmentMin 10 --chimOutType WithinBAM SoftClip --chimJunctionOverhangMin 10 --chimScoreMin 1 --chimScoreDropMax 30 --chimScoreJunctionNonGTAG 0 --chimScoreSeparation 1 --alignSJstitchMismatchNmax 5 -1 5 5 --chimSegmentReadGapMax 3 |
+    --chimSegmentMin 10 --chimOutType WithinBAM SoftClip --chimJunctionOverhangMin 10 --chimScoreMin 1 --chimScoreDropMax 30 --chimScoreJunctionNonGTAG 0 --chimScoreSeparation 1 --chimOutJunctionFormat 1 --alignSJstitchMismatchNmax 5 -1 5 5 --chimSegmentReadGapMax 3 |
 arriba \
     -x /dev/stdin \
     -o fusions.tsv -O fusions.discarded.tsv \
