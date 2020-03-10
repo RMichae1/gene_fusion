@@ -2,6 +2,7 @@
 
 module load tools
 module load gmap/20180325
+module load bowtie2/2.3.4.1
 module load trinityfusion/0.3.4
 
 BASE_DIR="/home/projects/cu_10160/people/ricmic/"
