@@ -14,7 +14,7 @@ OUTPUT_DIR="${BASE_DIR}/output/"
 # build index with STAR -> generate fusion junctions and alignment bam w/ fusions enabled
 
 function run_trinity(){
-TrinityFusion --left_fq ${LEFT_FASTQ} --right_fq ${RIGHT_FASTQ} --CPU 4 --aligned_bam ${BAM_STAR_FILE} --chimeric_junctions ${JUNCT_STAR_FILE} --genome_lib_dir ${GENOME_LIB} 
+TrinityFusion --left_fq ${LEFT_FASTQ} --right_fq ${RIGHT_FASTQ} --CPU 4 --aligned_bam ${BAM_STAR_FILE} --chimeric_junctions ${JUNCT_STAR_FILE} --genome_lib_dir ${GENOME_LIB} --output_dir ${SAMPLE_OUTPUT_DIR}
 }
 
 for left in ${LEFT_FILES}; do
