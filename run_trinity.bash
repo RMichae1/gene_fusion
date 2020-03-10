@@ -1,7 +1,7 @@
 # SCRIPT TO RUN TRINTIY FUSION
 
 module load tools
-module load trinity
+module load trinityfusion/0.3.4
 
 BASE_DIR="/home/projects/cu_10160/people/ricmic/"
 DATA_DIR="${BASE_DIR}/data/"
