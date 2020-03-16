@@ -69,12 +69,12 @@ class FusionWrapper:
                 continue
             sample_file = self.fusion_file.format(sample=sample, caller=caller, filename=fusion_tsv)
             tmp_df = pd.read_csv(sample_file, sep="\t")
-            # overwrite header in case sample names prevent merging
-            if header:
-                tmp_df.columns(header)
             # append sample name
             tmp_df["Sample"] = str(sample)
-            output_df.append(tmp_df)
+            # overwrite header in case sample names prevent merging
+            if header:
+                tmp_df.columns = header
+            output_df = output_df.append(tmp_df)
         return output_df
 
     def read_star_fusion(self) -> pd.DataFrame:
@@ -126,10 +126,11 @@ class FusionWrapper:
         self.fusion_df = fusion_df
 
     def write_to_file(self) -> None:
-        filepath = os.path.join(self.output_path, "fusion_benchmark.csv")
-        self.fusion_header.to_tsv(filepath)
+        filepath = os.path.join(self.output_path, "fusion_benchmark.tsv")
+        self.fusion_df.to_csv(filepath, sep="\t", index_label="CallIndex")
 
 
 if __name__ == '__main__':
     wrapper = FusionWrapper(output_path="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/output")
-    print(wrapper.get_fusion_df())
+    print("Merged dataframe ... \n {}".format(wrapper.get_fusion_df()))
+    wrapper.write_to_file()
