@@ -6,7 +6,7 @@ module load bowtie2/2.3.4.1
 module load trinityrnaseq/2.9.1
 module load trinityfusion/0.3.4
 
-source activate trinity
+source activate starseqr
 # pysam needs to be loaded via anaconda
 
 BASE_DIR="/home/projects/cu_10160/people/ricmic/"
