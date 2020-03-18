@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import os
 from os.path import join
 
+
 class FusionBenchmark:
     """
     Computes Benchmarking values and creates figures for the provided gene-fusion tsv
