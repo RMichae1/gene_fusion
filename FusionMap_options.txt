@@ -1,5 +1,5 @@
 Reference Human.hg38;
-GeneModel RefGene;
+GeneModel RefGene20171030;
 Trimming /Mode=TrimByQuality /LeftTrimming=0 /RightTrimming=0 /ReadTrimQuality=2 /ReadTrimSize=65536;
 Options /FusionVersion=2 /ParallelJobNumber=2 /PairedEnd=True /RnaMode=True /FileFormat=FASTQ /AutoPenalty=True 
 /FixedPenalty=2 /OutputFolder="OUTPUTFOLDER" /ThreadNumber=THREADS
