@@ -1,11 +1,7 @@
 module load tools
-module load anaconda2/4.4.0
-module load jdk/13.0.1
-module load openjdk/13.0.1
-module load java/1.8.0
-module load jre/1.8.0
+module load anaconda3/4.4.0
 
-source activate fusioncatcher
+source activate fusionbloom
 
 DATA_DIR="/home/projects/cu_10160/people/ricmic/data"
 OUTPUT_DIR="/home/projects/cu_10160/people/ricmic/output/"
@@ -15,8 +11,8 @@ RIGHT_FILES="${DATA_DIR}/synth/*/data.broadinstqitute.org/Trinity/CTAT_FUSIONTRA
 REF_DIR="${DATA_DIR}/ref/catcher_data/human_v98/"
 
 
-function run_catcher() {
-    fusioncatcher -d ${REF_DIR} -i ${FASTQ_FILES} -o ${SAMPLE_OUTPUT_DIR} --threads=4
+function run_bloom() {
+    
 }
 
 for left in ${LEFT_FILES}; do
@@ -29,18 +25,14 @@ for left in ${LEFT_FILES}; do
                 echo "creating dir ${SAMPLE_OUTPUT_DIR}"
                 mkdir ${SAMPLE_OUTPUT_DIR}
          fi
-         # Fusioncatcher also takes single FASTQ files to read
-         FASTQ_FILES="${left},${right}"
+	 
          
          echo "Running FusionCatcher on ${BASENAME}..."
          echo "With ${FASTQ_FILES}"
          
-         run_catcher
+         run_bloom
       fi
    done
 done
 
 exit 0
-
-
-
