@@ -16,7 +16,7 @@ REF_DIR="${DATA_DIR}/ref/catcher_data/human_v98/"
 
 
 function run_catcher() {
-    fusioncatcher -d ${REF_DIR} -i ${FASTQ_FILES} -o ${SAMPLE_OUTPUT_DIR} --threads=4
+    fusioncatcher.py -d ${REF_DIR} -i ${FASTQ_FILES} -o ${SAMPLE_OUTPUT_DIR} --threads=4
 }
 
 for left in ${LEFT_FILES}; do
