@@ -1,4 +1,4 @@
-Reference Human.B38;
+Reference Human.HG38;
 GeneModel RefGene;
 Trimming /Mode=TrimByQuality /LeftTrimming=0 /RightTrimming=0 /ReadTrimQuality=2 /ReadTrimSize=65536;
 Options /FusionVersion=2 /ParallelJobNumber=2 /PairedEnd=True /RnaMode=True /FileFormat=FASTQ /AutoPenalty=True 
