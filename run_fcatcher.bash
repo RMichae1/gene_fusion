@@ -15,7 +15,7 @@ REF_DIR="${DATA_DIR}/ref/catcher_data/human_v98/"
 
 
 function run_catcher() {
-    fusioncatcher.py -d ${REF_DIR} -i ${FASTQ_FILES} -o ${SAMPLE_OUTPUT_DIR} --threads=4
+    fusioncatcher.py -d ${REF_DIR} -i ${dir} -o ${SAMPLE_OUTPUT_DIR} --threads=4
 }
 
 SAMPLE_OUTPUT_DIR=${OUTPUT_DIR}/fusion_catcher
@@ -25,9 +25,9 @@ if [[ ! -d ${SAMPLE_OUTPUT_DIR} ]]; then
        mkdir ${SAMPLE_OUTPUT_DIR}
 fi
 
-for file in ${FASTQ_FILES}; do
+for dir in ${FASTQ_FILES}; do
          echo "Running FusionCatcher on ${BASENAME}..."
-         echo "With ${FASTQ_FILES}"
+         echo "With ${dir}"
          
          run_catcher
 done
