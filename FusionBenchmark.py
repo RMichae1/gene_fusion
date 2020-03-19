@@ -32,7 +32,7 @@ class FusionBenchmark:
         self.true_fusions50 = self.true_fusions_df(self.truth50)
         self.true_fusions101 = None
         self.benchmark50_df = self.compute_stats50()
-        # self.true_fusion101 = self.true_fusions_df(self.truth101
+        # self.true_fusion101 = self.true_fusions_df(self.truth101)
 
     def true_fusions_df(self, truth_df):
         """

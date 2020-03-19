@@ -65,7 +65,7 @@ class FusionWrapper:
         """
         for sample in os.listdir(self.output_path):
             # replace when not working with simulated data
-            if "sim" not in sample:
+            if "sim" not in sample or "_reads" in sample:
                 continue
             sample_file = self.fusion_file.format(sample=sample, caller=caller, filename=fusion_tsv)
             tmp_df = pd.read_csv(sample_file, sep="\t")
