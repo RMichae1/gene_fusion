@@ -3,15 +3,21 @@
 module load tools
 module load gmap/20180325
 module load bowtie2/2.3.4.1
+module load samtools/1.9
+module load jellyfish/2.2.7
+module load salmon/1.1.0
+module load java/1.8.0
+module load jre/1.8.0
+module load openjdk/13.0.1
+module load jdk/13.0.1
 module load trinityrnaseq/2.9.1
 module load trinityfusion/0.3.4
 
-source activate starseqr
 # pysam needs to be loaded via anaconda
 
 BASE_DIR="/home/projects/cu_10160/people/ricmic/"
 DATA_DIR="${BASE_DIR}/data/"
-GENOME_LIB="${DATA_DIR}/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/"
+export CTAT_GENOME_LIB="${DATA_DIR}/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/"
 LEFT_FILES="${DATA_DIR}/synth/*/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/*/reads/*_1.fq*"
 RIGHT_FILES="${DATA_DIR}/synth/*/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/*/reads/*_2.fq*"
 OUTPUT_DIR="${BASE_DIR}/output/"
