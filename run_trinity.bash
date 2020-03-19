@@ -12,14 +12,15 @@ module load openjdk/13.0.1
 module load jdk/13.0.1
 module load trinityrnaseq/2.9.1
 module load trinityfusion/0.3.4
+module load anaconda3/4.4.0
 
-# pysam needs to be loaded via anaconda
+source activate fusioncatcher
 
 BASE_DIR="/home/projects/cu_10160/people/ricmic/"
 DATA_DIR="${BASE_DIR}/data/"
 export CTAT_GENOME_LIB="${DATA_DIR}/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/"
-LEFT_FILES="${DATA_DIR}/synth/*/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/*/reads/*_1.fq*"
-RIGHT_FILES="${DATA_DIR}/synth/*/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/*/reads/*_2.fq*"
+LEFT_FILES="${DATA_DIR}/synth/*/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/*/reads/*/*_1.fq*"
+RIGHT_FILES="${DATA_DIR}/synth/*/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/*/reads/*/*_2.fq*"
 OUTPUT_DIR="${BASE_DIR}/output/"
 
 # reference CTAT genome index with GMAP

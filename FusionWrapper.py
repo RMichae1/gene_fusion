@@ -31,6 +31,14 @@ class FusionWrapper:
                             'KnownTranscriptStrand2', 'FusionJunctionSequence', 'FusionGene',
                             'SplicePattern', 'SplicePatternClass', 'FrameShift',
                             'FrameShiftClass', 'Distance', 'OnExonBoundary', 'Filter', "Sample"]
+        self.fcatcher_header = ['Gene_1_symbol(5end_fusion_partner)', 'Gene_2_symbol(3end_fusion_partner)',
+                                'Fusion_description', 'Counts_of_common_mapping_reads', 'Spanning_pairs',
+                                'Spanning_unique_reads', 'Longest_anchor_found', 'Fusion_finding_method',
+                                'Fusion_point_for_gene_1(5end_fusion_partner)',
+                                'Fusion_point_for_gene_2(3end_fusion_partner)',
+                                'Gene_1_id(5end_fusion_partner)',
+                                'Gene_2_id(3end_fusion_partner)', 'Exon_1_id(5end_fusion_partner)',
+                                'Exon_2_id(3end_fusion_partner)', 'Fusion_sequence', 'Predicted_effect']
         self.fusion_df = self.combine_dfs()
 
     def combine_dfs(self) -> pd.DataFrame:
@@ -41,7 +49,8 @@ class FusionWrapper:
         combined_df = pd.DataFrame(columns=self.fusion_header)
         star_fusion_df = self.wrap_star()
         fmap_df = self.wrap_fmap()
-        combined_df = combined_df.append(star_fusion_df).append(fmap_df)
+        fcatcher_df = self.wrap_fcatcher()
+        combined_df = combined_df.append(star_fusion_df).append(fmap_df).append(fcatcher_df)
         return combined_df
 
     def wrap_star(self) -> pd.DataFrame:
@@ -51,8 +60,13 @@ class FusionWrapper:
 
     def wrap_fmap(self) -> pd.DataFrame:
         fmap_df = self.read_fusion_map()
-        unified_df = self.wrap_fmap_fusion(fmap_df)
-        return unified_df
+        wrapped_fmap_df = self.wrap_fmap_fusion(fmap_df)
+        return wrapped_fmap_df
+
+    def wrap_fcatcher(self) -> pd.DataFrame:
+        fcatcher_df = self.read_fusion_catcher()
+        wrapped_fcatcher_df = self.wrap_fcatcher_fusion(fcatcher_df)
+        return wrapped_fcatcher_df
 
     def load_samples_to_df(self, output_df: pd.DataFrame, caller: str, fusion_tsv: str, header: List[str] = None) -> pd.DataFrame:
         """
@@ -65,7 +79,7 @@ class FusionWrapper:
         """
         for sample in os.listdir(self.output_path):
             # replace when not working with simulated data
-            if "sim" not in sample or "_reads" in sample:
+            if "sim" not in sample: #or "_reads" in sample:
                 continue
             sample_file = self.fusion_file.format(sample=sample, caller=caller, filename=fusion_tsv)
             tmp_df = pd.read_csv(sample_file, sep="\t")
@@ -118,6 +132,22 @@ class FusionWrapper:
         wrapped_df["Sample"] = fmap_df["Sample"]
         wrapped_df["FusionCaller"] = "FusionMap"
         return wrapped_df
+
+    def read_fusion_catcher(self) -> pd.DataFrame:
+        empty_fcatcher_df = pd.DataFrame(columns=self.fcatcher_header)
+        merged_fcatcher_df = self.load_samples_to_df(output_df=empty_fcatcher_df, caller="fcatcher",
+                                                     fusion_tsv="final-list_candidate-fusion-genes.txt",
+                                                     header=self.fcatcher_header)
+        return merged_fcatcher_df
+
+    def wrap_fcatcher_fusion(self, fcatcher_df: pd.DataFrame) -> pd.DataFrame:
+        wrapped_df = pd.DataFrame(columns=self.fcatcher_header)
+        wrapped_df["#FusionName"] = fcatcher_df["Gene_1_symbol(5end_fusion_partner)"].astype(str) + "--" + fcatcher_df[
+            "Gene_2_symbol(3end_fusion_partner)"].astype(str)
+        wrapped_df["LeftBreakpoint"] = "chr" + fcatcher_df["Fusion_point_for_gene_1(5end_fusion_partner)"]
+        wrapped_df["RightBreakpoint"] = "chr" + fcatcher_df["Fusion_point_for_gene_2(3end_fusion_partner)"]
+        wrapped_df["Sample"] = fcatcher_df["Sample"]
+        wrapped_df["FusionCaller"] = "FusionCatcher"
 
     def get_fusion_df(self) -> pd.DataFrame:
         return self.fusion_df
