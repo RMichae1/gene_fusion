@@ -1,0 +1,5 @@
+module load tools
+module load bowtie/1.2.1.1
+module load tophat/2.1.1
+
+tophat --bowtie1 -o /home/projects/cu_10160/people/ricmic/output/sim_adipose/tophat/ -p 8 -j /home/projects/cu_10160/people/ricmic/output/sim_adipose/Chimeric.out.junction --GTF /home/projects/cu_10160/people/ricmic/data/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/ref_annot.gtf /home/projects/cu_10160/people/ricmic/data/ref/GRCh38_gencode_v31_CTAT_lib_Oct012019.plug-n-play/ctat_genome_lib_build_dir/bowtie_idx /home/projects/cu_10160/people/ricmic/data/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads/sim_adipose/sim_adipose_1.fq /home/projects/cu_10160/people/ricmic/data/synth/sim50/data.broadinstitute.org/Trinity/CTAT_FUSIONTRANS_BENCHMARKING/on_simulated_data/sim_50/reads/sim_adipose/sim_adipose_2.fq
