@@ -68,7 +68,8 @@ class FusionWrapper:
         wrapped_fcatcher_df = self.wrap_fcatcher_fusion(fcatcher_df)
         return wrapped_fcatcher_df
 
-    def load_samples_to_df(self, output_df: pd.DataFrame, caller: str, fusion_tsv: str, header: List[str] = None) -> pd.DataFrame:
+    def load_samples_to_df(self, output_df: pd.DataFrame, caller: str, fusion_tsv: str,
+                           header: List[str] = None) -> pd.DataFrame:
         """
         iterate over samples and load complete dataframe for each caller
         :param output_df: dataframe which is appended to
@@ -79,7 +80,7 @@ class FusionWrapper:
         """
         for sample in os.listdir(self.output_path):
             # replace when not working with simulated data
-            if "sim" not in sample: #or "_reads" in sample:
+            if "sim" not in sample:
                 continue
             sample_file = self.fusion_file.format(sample=sample, caller=caller, filename=fusion_tsv)
             tmp_df = pd.read_csv(sample_file, sep="\t")
@@ -136,8 +137,7 @@ class FusionWrapper:
     def read_fusion_catcher(self) -> pd.DataFrame:
         empty_fcatcher_df = pd.DataFrame(columns=self.fcatcher_header)
         merged_fcatcher_df = self.load_samples_to_df(output_df=empty_fcatcher_df, caller="fcatcher",
-                                                     fusion_tsv="final-list_candidate-fusion-genes.txt",
-                                                     header=self.fcatcher_header)
+                                                     fusion_tsv="final-list_candidate-fusion-genes.txt")
         return merged_fcatcher_df
 
     def wrap_fcatcher_fusion(self, fcatcher_df: pd.DataFrame) -> pd.DataFrame:

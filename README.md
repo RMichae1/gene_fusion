@@ -20,10 +20,15 @@ Fusion caller which relies on STAR output.
 
 Version used 1.8.1
 
+*Status*: Ran to completion on local setup with correct Perl dependencies.
+
 ## Arriba
 Fusion Caller tool which relies on STAR output.
 
 Version used 1.1.0
+
+*Status*: STAR aligner output of version used on the cluster compute node in conflict with Arriba
+required input. Errors in formatting.
 
 ## STAR-SEQR
 
@@ -40,11 +45,17 @@ FusionMap_options.txt - contains the specified options for the run of fusionmap
 
 FusionMap.sh - Boilerplate Code that creates a config and command to run FusionMap from specified parameters
 
+Make sure to run with correct reference file version (hg38) with right annotation.
+
+*Status*: Ran to completion on cluster-compute node.
 
 ## ChimPipe
 
 Requires a genome index in .gem format (use gemtools for that).
 Runs with either fastq files or bam files.
+
+*Status*: gemtools generated index faulty and key-file empty. Error could not be identified.
+No pipeline run possible.
 
 ## Fusion Catcher
 
@@ -58,3 +69,24 @@ wget http://sourceforge.net/projects/fusioncatcher/files/data/human_v98.tar.gz.a
 wget http://sourceforge.net/projects/fusioncatcher/files/data/human_v98.tar.gz.ac
 wget http://sourceforge.net/projects/fusioncatcher/files/data/human_v98.tar.gz.ad
 ```
+
+*Status*: Ran to completion on cluster-compute node
+
+## Trinity Fusion
+
+Trinity Fusion Pipeline is a multi-stage pipeline 
+requirements:
+ - python environment with pysam installed
+ - perl >v.5 with Set::IntervalTree installed
+ - gmap index of your reference required
+ 
+ *Status*: Ran to completion on local set-up after using anaconda environment for first 2 stages of pipeline 
+ and exiting the environment for the last stage and required perl dependencies
+ 
+ ## TopHat Fusion
+ 
+ Requirements:
+ - samtools
+ - bowtie2
+ 
+ *Status*: Conflict between TopHat2 and bowtie. Error when reading from index after ~4-6h runtime.
