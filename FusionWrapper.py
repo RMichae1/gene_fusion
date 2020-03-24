@@ -39,6 +39,9 @@ class FusionWrapper:
                                 'Gene_1_id(5end_fusion_partner)',
                                 'Gene_2_id(3end_fusion_partner)', 'Exon_1_id(5end_fusion_partner)',
                                 'Exon_2_id(3end_fusion_partner)', 'Fusion_sequence', 'Predicted_effect']
+        self.trinity_header = ['#FusionName', 'JunctionReadCount', 'SpanningFragCount',
+                               'trans_acc', 'trans_brkpt', 'LeftGene', 'LeftBreakpoint',
+                               'RightGene', 'RightBreakpoint', 'SpliceType', 'annots']
         self.fusion_df = self.combine_dfs()
 
     def combine_dfs(self) -> pd.DataFrame:
@@ -50,7 +53,8 @@ class FusionWrapper:
         star_fusion_df = self.wrap_star()
         fmap_df = self.wrap_fmap()
         fcatcher_df = self.wrap_fcatcher()
-        combined_df = combined_df.append(star_fusion_df).append(fmap_df).append(fcatcher_df)
+        trinity_df = self.wrap_trinity()
+        combined_df = combined_df.append(star_fusion_df).append(fmap_df).append(fcatcher_df).append(trinity_df)
         return combined_df
 
     def wrap_star(self) -> pd.DataFrame:
@@ -68,6 +72,11 @@ class FusionWrapper:
         wrapped_fcatcher_df = self.wrap_fcatcher_fusion(fcatcher_df)
         return wrapped_fcatcher_df
 
+    def wrap_trinity(self) -> pd.DataFrame:
+        trinity_df = self.read_trinity()
+        wrapped_trinity_df = self.wrap_trinity_fusion(trinity_df)
+        return wrapped_trinity_df
+
     def load_samples_to_df(self, output_df: pd.DataFrame, caller: str, fusion_tsv: str,
                            header: List[str] = None) -> pd.DataFrame:
         """
@@ -80,7 +89,7 @@ class FusionWrapper:
         """
         for sample in os.listdir(self.output_path):
             # replace when not working with simulated data
-            if "sim" not in sample:
+            if not sample.startswith('sim'):
                 continue
             sample_file = self.fusion_file.format(sample=sample, caller=caller, filename=fusion_tsv)
             tmp_df = pd.read_csv(sample_file, sep="\t")
@@ -141,13 +150,30 @@ class FusionWrapper:
         return merged_fcatcher_df
 
     def wrap_fcatcher_fusion(self, fcatcher_df: pd.DataFrame) -> pd.DataFrame:
-        wrapped_df = pd.DataFrame(columns=self.fcatcher_header)
+        wrapped_df = pd.DataFrame(columns=self.fusion_header)
         wrapped_df["#FusionName"] = fcatcher_df["Gene_1_symbol(5end_fusion_partner)"].astype(str) + "--" + fcatcher_df[
             "Gene_2_symbol(3end_fusion_partner)"].astype(str)
         wrapped_df["LeftBreakpoint"] = "chr" + fcatcher_df["Fusion_point_for_gene_1(5end_fusion_partner)"]
         wrapped_df["RightBreakpoint"] = "chr" + fcatcher_df["Fusion_point_for_gene_2(3end_fusion_partner)"]
         wrapped_df["Sample"] = fcatcher_df["Sample"]
         wrapped_df["FusionCaller"] = "FusionCatcher"
+        return wrapped_df
+
+    def read_trinity(self) -> pd.DataFrame:
+        empty_trinity_df = pd.DataFrame(columns=self.trinity_header)
+        merged_trinity_df = self.load_samples_to_df(output_df=empty_trinity_df,
+                                                    caller="trinity",
+                                                    fusion_tsv="TrinityFusion-UC.fusion_predictions.tsv")
+        return merged_trinity_df
+
+    def wrap_trinity_fusion(self, trinity_df: pd.DataFrame) -> pd.DataFrame:
+        wrapped_df = pd.DataFrame(columns=self.fusion_header)
+        wrapped_df["#FusionName"] = trinity_df["#FusionName"]
+        wrapped_df["LeftBreakpoint"] = trinity_df["LeftBreakpoint"]
+        wrapped_df["RightBreakpoint"] = trinity_df["RightBreakpoint"]
+        wrapped_df["Sample"] = trinity_df["Sample"]
+        wrapped_df["FusionCaller"] = "TrinityFusion"
+        return wrapped_df
 
     def get_fusion_df(self) -> pd.DataFrame:
         return self.fusion_df
@@ -157,6 +183,7 @@ class FusionWrapper:
 
     def write_to_file(self) -> None:
         filepath = os.path.join(self.output_path, "fusion_benchmark.tsv")
+        print(filepath)
         self.fusion_df.to_csv(filepath, sep="\t", index_label="CallIndex")
 
 

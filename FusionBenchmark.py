@@ -28,8 +28,15 @@ class FusionBenchmark:
             os.mkdir(self.fig_dir)
         self.chr_ix = self.set_chr_ix()
         self.fusion_df = pd.read_csv(fusion_tsv, sep="\t")
+        if self.analysis_name == "sim50":
+            self.samples = ["sim_adipose", "sim_brain", "sim_colon", "sim_heart", "sim_testis"]
+        elif self.analysis_name == "sim101":
+            self.samples = ["sim1_reads", "sim2_reads", "sim3_reads", "sim4_reads", "sim5_reads"]
+        else:
+            raise ValueError("USAGE: Specify 50nt or 101nt analysis.")
+        self.subselect_analysis()
         self.truth = pd.read_csv(truth_file, sep="|", header=None, names=("Sample", "FusionName"))
-        self.true_fusions = self.true_fusions_df(self.truth)
+        self.true_fusions_df = self.find_true_fusions(self.truth)
         self.benchmark_df = self.compute_stats()
         self.breakpoints_df = self.get_breakpoint_dist(self.fusion_df)
 
@@ -40,7 +47,10 @@ class FusionBenchmark:
         chr_ix.append("chrY")
         return chr_ix
 
-    def true_fusions_df(self, truth_df) -> pd.DataFrame:
+    def subselect_analysis(self):
+        self.fusion_df = self.fusion_df[self.fusion_df["Sample"].isin(self.samples)]
+
+    def find_true_fusions(self, truth_df) -> pd.DataFrame:
         """
         returns aggregated df of correctly called fusions per caller in with True,
         False column
@@ -51,7 +61,7 @@ class FusionBenchmark:
         return selected_df
 
     def write_true_fusions(self) -> pd.DataFrame:
-        self.true_fusions.to_csv(join(self.stats_dir, "true_fusions.tsv"), sep="\t")
+        self.true_fusions_df.to_csv(join(self.stats_dir, "true_fusions.tsv"), sep="\t")
 
     def compute_stats(self):
         """
@@ -64,8 +74,8 @@ class FusionBenchmark:
         caller_sample_df = self.fusion_df.groupby(["FusionCaller", "Sample"]).first().reset_index()
         benchmark_df["FusionCaller"] = caller_sample_df["FusionCaller"]
         benchmark_df["Sample"] = caller_sample_df["Sample"]
-        benchmark_df["TP"] = self.true_fusions[self.true_fusions["Fusion_Truth"]==True].reset_index()["#FusionName"]
-        benchmark_df["FP"] = self.true_fusions[self.true_fusions["Fusion_Truth"]==False].reset_index()["#FusionName"]
+        benchmark_df["TP"] = self.true_fusions_df[self.true_fusions_df["Fusion_Truth"]==True].reset_index()["#FusionName"]
+        benchmark_df["FP"] = self.true_fusions_df[self.true_fusions_df["Fusion_Truth"]==False].reset_index()["#FusionName"]
         benchmark_df["Precision"] = self.compute_precision(tp=benchmark_df["TP"], fp=benchmark_df["FP"])
 
         false_negatives_df = self.false_negatives(truth_df=self.truth)
@@ -166,33 +176,35 @@ class FusionBenchmark:
         :return:
         """
         # we have two values per sample, therefore deselect every other
-        labels = ["{}-{}".format(caller, sample) for i, (caller, sample)
-                  in enumerate(zip(self.true_fusions_df["FusionCaller"], self.true_fusions_df["Sample"]))
+        labels = ["{}-{}".format(call_sample[0], call_sample[1]) for i, call_sample
+                  in enumerate(list(zip(self.true_fusions_df.FusionCaller, self.true_fusions_df.Sample)))
                   if i % 2 == 0]
         ind = range(len(self.true_fusions_df["Sample"].unique()) * len(self.true_fusions_df["FusionCaller"].unique()))
 
         p1 = plt.bar(ind, np.array(self.true_fusions_df[
-                                       self.true_fusions_df["Fusion_Truth"] == False]["#FusionName"]), width=0.35)
+                                       self.true_fusions_df["Fusion_Truth"]==False]["#FusionName"]), width=0.35)
         p2 = plt.bar(ind, np.array(self.true_fusions_df[
-                                       self.true_fusions_df["Fusion_Truth"] == True]["#FusionName"]),
+                                       self.true_fusions_df["Fusion_Truth"]==True]["#FusionName"]),
                      bottom=np.array(self.true_fusions_df[
-                                         self.true_fusions_df["Fusion_Truth"] == False]["#FusionName"]), width=0.35)
+                                         self.true_fusions_df["Fusion_Truth"]==False]["#FusionName"]), width=0.35)
 
         plt.ylabel("counts")
         plt.title("Fusions Detected by Caller")
-        plt.xticks(ind, labels, rotation=20)
+        plt.xticks(ind, labels, rotation=90, fontsize=8)
         plt.legend((p1[0], p2[0]), ('False Positives', 'True Positives'))
         plt.tight_layout()
         if savefig:
             filename = "true_fusions_{}.png".format(self.analysis_name)
-            plt.savefig(join(self.output, "figures",  filename))
+            plt.savefig(join(self.output, "figures_{}".format(self.analysis_name),  filename))
         plt.show()
         plt.clf()
 
     def plot_stats(self, savefig=False) -> None:
-        boxplot = self.benchmark_df.boxplot(column=["Precision", "Recall", "F1"], by="FusionCaller")
+        boxplot = self.benchmark_df.boxplot(column=["Precision", "Recall", "F1"],
+                                            by="FusionCaller", rot=15)
+        plt.suptitle("")
         if savefig:
-            plt.savefig(join(self.output, "figures", "stats_boxplot.png"))
+            plt.savefig(join(self.output, "figures_{}".format(self.analysis_name), "stats_boxplot.png"))
         plt.show()
 
     def plot_break_heatmap_comparison(self, caller1: str =None, caller2: str =None,
@@ -218,25 +230,26 @@ class FusionBenchmark:
 
         fig.colorbar(im1, ax=ax1, orientation="horizontal")
 
-        ax0.set_title("Fusion Breakpoints {}".format(caller1))
         ax0.set_xticks(chr_range)
         ax0.set_xticklabels(list(df1))
         ax0.set_yticks(chr_range)
         ax0.set_yticklabels(list(df2))
 
-        ax1.set_title("Fusion Breakpoints {}".format(caller2))
         ax1.set_xticks(chr_range)
         ax1.set_xticklabels(list(df2))
         ax1.set_yticks(chr_range)
         ax1.set_yticklabels([])
 
-        plt.setp(ax0.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
-        plt.setp(ax1.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
+        plt.setp(ax0.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor", fontsize=8)
+        plt.setp(ax0.get_yticklabels(), fontsize=8)
+        plt.setp(ax1.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor", fontsize=8)
+        plt.setp(ax1.get_yticklabels(), fontsize=8)
 
         if savefig:
             filename = "break_heatmap_{}_{}.png".format(caller1, caller2)
-            plt.savefig(join(self.output, "figures", filename))
+            plt.savefig(join(self.output, "figures_{}".format(self.analysis_name), filename))
 
+        fig.suptitle("Fusion Breakpoints for {} and {}".format(caller1, caller2))
         fig.tight_layout()
         fig.show()
 
@@ -305,7 +318,7 @@ class FusionBenchmark:
 
         if savefig:
             filename = "break_dist_{}{}.png".format(self.analysis_name, caller)
-            plt.savefig(join(self.output, "figures", filename))
+            plt.savefig(join(self.output, "figures_{}".format(self.analysis_name), filename))
 
         if caller:
             self.breakpoints_df = backup_df.copy()
@@ -316,12 +329,26 @@ class FusionBenchmark:
 
 if __name__ == '__main__':
     # first analysis is for simulated data 50nt basis
-    benchmark50 = FusionBenchmark(fusion_tsv="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/output/fusion_benchmark.tsv",
-                                out_path="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/output",
-                                truth_path="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/ref/sim_50.truth_set,dat")
-    benchmark50.plot_true_fusions()
+    benchmark50 = FusionBenchmark(
+        fusion_tsv="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/output/fusion_benchmark.tsv",
+        out_path="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/output",
+        truth_file="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/ref/sim_50.truth_set.dat",
+        analysis_name="sim50")
+    benchmark50.plot_true_fusions(savefig=True)
     benchmark50.write_true_fusions()
     print(benchmark50.benchmark_df)
     benchmark50.plot_stats(savefig=True)
     benchmark50.plot_break_distribution(savefig=True)
-    benchmark50.plot_break_heatmap_comparison(caller1="FusionMap", caller2="STAR-Fusion")
+    benchmark50.plot_break_heatmap_comparison(caller1="FusionMap", caller2="STAR-Fusion", savefig=True)
+
+    # second analysis for longer 101nt samples
+    benchmark101 = FusionBenchmark(
+        fusion_tsv="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/output/fusion_benchmark.tsv",
+        out_path="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/output",
+        truth_file="/home/rimichael/Uni/KU_BioInf/projects/gene_fusion/ref/sim_101.truth_set.dat",
+        analysis_name="sim101")
+    benchmark101.plot_true_fusions(savefig=True)
+    benchmark101.write_true_fusions()
+    benchmark101.plot_stats(savefig=True)
+    benchmark101.plot_break_heatmap_comparison(caller1="FusionMap", caller2="STAR-Fusion", savefig=True)
+    benchmark101.plot_break_distribution(savefig=True)
