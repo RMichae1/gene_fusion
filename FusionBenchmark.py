@@ -249,7 +249,7 @@ class FusionBenchmark:
             filename = "break_heatmap_{}_{}.png".format(caller1, caller2)
             plt.savefig(join(self.output, "figures_{}".format(self.analysis_name), filename))
 
-        fig.suptitle("Fusion Breakpoints for {} and {}".format(caller1, caller2))
+        fig.suptitle("\n\n\nFusion Breakpoints {} and {}".format(caller1, caller2))
         fig.tight_layout()
         fig.show()
 
@@ -315,6 +315,7 @@ class FusionBenchmark:
         ax3.axis("off")
 
         plt.setp(ax2.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
+        plt.setp(ax1.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor", fontsize=9)
 
         if savefig:
             filename = "break_dist_{}{}.png".format(self.analysis_name, caller)
@@ -336,10 +337,13 @@ if __name__ == '__main__':
         analysis_name="sim50")
     benchmark50.plot_true_fusions(savefig=True)
     benchmark50.write_true_fusions()
+    benchmark50.write_stats()
     print(benchmark50.benchmark_df)
     benchmark50.plot_stats(savefig=True)
     benchmark50.plot_break_distribution(savefig=True)
     benchmark50.plot_break_heatmap_comparison(caller1="FusionMap", caller2="STAR-Fusion", savefig=True)
+    benchmark50.plot_break_distribution(savefig=True, caller="FusionMap")
+    benchmark50.plot_break_distribution(savefig=True, caller="STAR-Fusion")
 
     # second analysis for longer 101nt samples
     benchmark101 = FusionBenchmark(
@@ -349,6 +353,7 @@ if __name__ == '__main__':
         analysis_name="sim101")
     benchmark101.plot_true_fusions(savefig=True)
     benchmark101.write_true_fusions()
+    benchmark101.write_stats()
     benchmark101.plot_stats(savefig=True)
     benchmark101.plot_break_heatmap_comparison(caller1="FusionMap", caller2="STAR-Fusion", savefig=True)
     benchmark101.plot_break_distribution(savefig=True)
